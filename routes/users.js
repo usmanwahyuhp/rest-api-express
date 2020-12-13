@@ -12,17 +12,19 @@ router.get('/', ( req, res ) => {
 // Add functionality to adding use to database using router post
 router.post('/', ( req, res ) => {
     const user = req.body;
-    // const userId = uuidv4();
-
+    
     // // using spread operator to add id into user data
-    // const userWithId = { ...user, id: userId };
-
-    // users.push(userWithId);
-
-    // refactor
     users.push({ ...user, id: uuidv4() });
     
     res.send(`User with name ${user.firstName} added to the database`);
+});
+
+router.get('/:id', ( req, res ) => {
+    const { id } = req.params;
+
+    const foundUser = users.find((user) => user.id === id);
+
+    res.send(foundUser);
 });
 
 export default router;
